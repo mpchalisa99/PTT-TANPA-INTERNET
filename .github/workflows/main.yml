@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -16,12 +16,22 @@ jobs:
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
+          
+      - name: Perbaiki Format Android V2 & Otomatisasi Izin
+        run: |
+          rm -rf android
+          flutter create --platforms=android .
+          sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>\n    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>\n    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" \/>\n    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" \/>\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" \/>\n    <uses-permission android:name="android.permission.WAKE_LOCK" \/>\n    <application/g' android/app/src/main/AndroidManifest.xml
+        working-directory: ./flutter_project
+        
       - name: Mengunduh Komponen
         run: flutter pub get
         working-directory: ./flutter_project
+        
       - name: Merakit APK
         run: flutter build apk --release
         working-directory: ./flutter_project
+        
       - name: Menyimpan File APK
         uses: actions/upload-artifact@v4
         with:
