@@ -1,0 +1,61 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="id.mil.tni_au.diskomlekau.tactical_ptt">
+
+    <!-- ================================================================== -->
+    <!-- 1. IZIN JARINGAN LOKAL (LAN / WIFI HOTSPOT 100% OFFLINE)           -->
+    <!-- ================================================================== -->
+    <!-- Wajib untuk membuka RawDatagramSocket (UDP Port 50500) di Android -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Wajib untuk mengecek konektivitas antarmuka jaringan lokal -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Wajib bagi network_info_plus untuk membaca IP WiFi & Subnet -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- SANGAT PENTING: Mengizinkan penerimaan paket UDP Broadcast (x.x.x.255)
+         dan Multicast agar tidak diblokir oleh filter hemat daya WiFi Android -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <!-- Wajib di Android 8.1 s/d Android 12 agar network_info_plus diizinkan
+         membaca informasi jaringan WiFi lokal -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Wajib di Android 13+ (API 33+) untuk akses info WiFi / Hotspot terdekat
+         tanpa melacak lokasi GPS fisik -->
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation" />
+
+    <!-- ================================================================== -->
+    <!-- 2. IZIN AUDIO PTT & BACKGROUND WAKE LOCK                           -->
+    <!-- ================================================================== -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:label="DISKOMLEKAU TACTICAL PTT"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/LaunchTheme"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <meta-data
+            android:name="flutterEmbedding"
+            android:value="2" />
+    </application>
+</manifest>
