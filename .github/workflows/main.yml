@@ -23,8 +23,10 @@ jobs:
           sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>\n    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>\n    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" \/>\n    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" \/>\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" \/>\n    <uses-permission android:name="android.permission.WAKE_LOCK" \/>\n    <application/g' android/app/src/main/AndroidManifest.xml
         working-directory: ./flutter_project
         
-      - name: Mengunduh Komponen
-        run: flutter pub get
+      - name: Memperbarui & Mengunduh Komponen
+        run: |
+          rm -f pubspec.lock
+          flutter pub upgrade
         working-directory: ./flutter_project
         
       - name: Merakit APK
