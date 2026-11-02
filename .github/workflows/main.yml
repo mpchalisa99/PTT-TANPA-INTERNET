@@ -23,9 +23,10 @@ jobs:
           sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>\n    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>\n    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" \/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" \/>\n    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" \/>\n    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" \/>\n    <uses-permission android:name="android.permission.WAKE_LOCK" \/>\n    <application/g' android/app/src/main/AndroidManifest.xml
         working-directory: ./flutter_project
         
-      - name: Memperbarui & Mengunduh Komponen
+      - name: Paksa Update Plugin Mikrofon (Fix Error Linux)
         run: |
-          rm -f pubspec.lock
+          flutter pub remove record
+          flutter pub add record
           flutter pub upgrade
         working-directory: ./flutter_project
         
