@@ -18,10 +18,12 @@ jobs:
           channel: 'stable'
       - name: Mengunduh Komponen
         run: flutter pub get
+        working-directory: ./flutter_project
       - name: Merakit APK
         run: flutter build apk --release
+        working-directory: ./flutter_project
       - name: Menyimpan File APK
         uses: actions/upload-artifact@v3
         with:
           name: Aplikasi-Wavelink-APK
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: flutter_project/build/app/outputs/flutter-apk/app-release.apk
